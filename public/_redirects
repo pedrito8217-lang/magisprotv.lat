@@ -1,0 +1,2 @@
+# Redirecciones deshabilitadas del servidor estático para delegar en redirecciones seguras de código HTML/JS.
+# De esta manera se evitan bloqueos de carga y problemas de cacheado en Cloudflare Pages.

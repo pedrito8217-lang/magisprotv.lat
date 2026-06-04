@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-brand-pink: #ff1e6e;
+  --color-brand-purple: #6a00ff;
+  --color-brand-magenta: #b1004b;
+  --color-brand-blue: #00a4ff;
+  --color-cosmic-black: #0b0214;
+  --color-cosmic-card: rgba(18, 8, 32, 0.7);
+}
+
+@layer utilities {
+  .glow-pink {
+    text-shadow: 0 0 10px rgba(255, 30, 110, 0.5), 0 0 20px rgba(255, 30, 110, 0.2);
+  }
+  .glow-purple {
+    text-shadow: 0 0 10px rgba(106, 0, 255, 0.5), 0 0 20px rgba(106, 0, 255, 0.2);
+  }
+  .border-glow-pink {
+    box-shadow: 0 0 15px rgba(255, 30, 110, 0.3);
+  }
+  .border-glow-purple {
+    box-shadow: 0 0 15px rgba(106, 0, 255, 0.3);
+  }
+}
+
+body {
+  background-color: var(--color-cosmic-black);
+  color: #f3f4f6;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0214;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff1e6e;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b1004b;
+}

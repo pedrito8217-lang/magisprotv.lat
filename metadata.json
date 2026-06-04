@@ -1,0 +1,6 @@
+{
+  "name": "Portal de Guías",
+  "description": "Landing page minimalista y optimizada para apps de TV como Oleada TV y Stella TV, diseñada para alto rendimiento.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

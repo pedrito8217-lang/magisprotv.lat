@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal de Guías - Apps de TV (Oleada & Stella TV)</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  
+  <!-- Premium Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              pink: '#ff1e6e',
+              purple: '#6a00ff',
+              magenta: '#b1004b',
+              blue: '#00a4ff',
+            },
+            cosmic: {
+              black: '#0b0214',
+              card: 'rgba(18, 8, 32, 0.7)',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Core styles & Glow overlays -->
+  <style type="text/css">
+    ::selection {
+      background-color: #ff1e6e;
+      color: #ffffff;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b0214;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #ff1e6e;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #b1004b;
+    }
+    .glow-pink {
+      text-shadow: 0 0 12px rgba(255, 30, 110, 0.45);
+    }
+    .glow-text-blue {
+      text-shadow: 0 0 12px rgba(0, 164, 255, 0.45);
+    }
+    
+    /* Dedicated Secure Cross-device WhatsApp Float Rules */
+    .ws-secure-btn {
+      position: fixed !important;
+      bottom: 24px !important;
+      right: 24px !important;
+      width: 56px !important;
+      height: 56px !important;
+      background-color: #25d366 !important;
+      color: #ffffff !important;
+      border-radius: 9999px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4) !important;
+      z-index: 999999 !important;
+      transition: all 0.3s ease !important;
+      pointer-events: auto !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+    .ws-secure-btn:hover {
+      transform: scale(1.1) !important;
+      background-color: #20ba5a !important;
+    }
+    .ws-secure-btn:active {
+      transform: scale(0.95) !important;
+    }
+    .ws-secure-pulse {
+      position: absolute !important;
+      inset: 0 !important;
+      border-radius: 9999px !important;
+      animation: ws-ping-anim 1.5s cubic-bezier(0, 0, 0.2, 1) infinite !important;
+      background-color: rgba(37, 211, 102, 0.3) !important;
+      pointer-events: none !important;
+      z-index: -1 !important;
+    }
+    @keyframes ws-ping-anim {
+      75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body class="bg-[#0b0214] text-gray-100 font-sans antialiased overflow-x-hidden relative">
+
+  <!-- Background Ambiance -->
+  <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#6a00ff]/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+  <div class="absolute top-[800px] right-0 w-[400px] h-[400px] bg-[#ff1e6e]/5 rounded-full blur-[160px] pointer-events-none -z-10"></div>
+
+  <!-- Header Navigation -->
+  <header class="w-full z-50 py-6 px-6 md:px-12 border-b border-white/5 bg-[#0b0214]/80 backdrop-blur-md sticky top-0">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-brand-pink to-brand-purple flex items-center justify-center shadow-lg shadow-brand-pink/20">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4"></path>
+          </svg>
+        </div>
+        <div>
+          <span class="font-display font-bold text-lg tracking-tight text-white block">Portal Apps de TV</span>
+          <span class="text-[9px] text-[#ff1e6e] font-mono font-bold uppercase tracking-wider block">Soporte Certificado</span>
+        </div>
+      </div>
+
+      <div class="hidden md:flex items-center gap-8 text-sm font-semibold">
+        <a href="#hero" class="text-gray-300 hover:text-white transition-colors">Inicio</a>
+        <a href="#showcase" class="text-gray-300 hover:text-white transition-colors">Aplicaciones</a>
+        <a href="#status" class="text-gray-300 hover:text-white transition-colors">Estado</a>
+      </div>
+
+      <div>
+        <a href="#showcase" class="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-white font-bold text-xs uppercase tracking-wide hover:bg-white/10 transition-all flex items-center gap-2">
+          <span>Acceder</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative min-h-[85vh] flex items-center justify-start overflow-hidden">
+    <!-- Background Image Absolute Container using hero.webp -->
+    <div class="absolute inset-0 z-0 select-none pointer-events-none">
+      <img 
+        src="hero.webp" 
+        alt="Fondo Apps de TV" 
+        class="w-full h-full object-cover object-right opacity-100"
+      />
+      <!-- Subtle horizontal gradient to guarantee text legibility on the left side -->
+      <div class="absolute inset-0 bg-gradient-to-r from-[#0b0214]/90 via-[#0b0214]/40 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#0b0214] via-[#0b0214]/15 to-transparent"></div>
+    </div>
+
+    <!-- Core content overlay container -->
+    <div class="max-w-7xl mx-auto w-full px-6 md:px-12 py-16 grid lg:grid-cols-12 gap-12 items-center relative z-10">
+      
+      <!-- Left side: Sales Pitch & Actions -->
+      <div class="lg:col-span-7 space-y-6 md:space-y-8 text-left bg-transparent">
+        
+        <!-- Status highlight banner -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-pink/15 border border-brand-pink/35 rounded-full backdrop-blur-sm">
+          <span class="w-2 h-2 rounded-full bg-brand-pink animate-pulse"></span>
+          <span class="text-[10px] md:text-xs text-brand-pink font-mono font-bold uppercase tracking-wider">
+            Guías oficiales activas para apps de tv
+          </span>
+        </div>
+
+        <div class="space-y-4">
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-extrabold leading-tight text-white tracking-tight">
+            Las mejores <span class="bg-gradient-to-r from-brand-pink via-brand-magenta to-brand-purple bg-clip-text text-transparent glow-pink">apps de tv</span> para todo tu entretenimiento.
+          </h1>
+          
+          <p class="text-gray-300 text-sm md:text-base leading-relaxed max-w-xl">
+            Descubra por qué <strong class="text-white">Oleada TV</strong> y <strong class="text-white">Stella TV</strong> lideran las preferencias en televisión digital interactiva. Todo el deporte, cine de estreno y canales premium en alta velocidad en tus pantallas favoritas.
+          </p>
+        </div>
+
+        <!-- Quick core values badge matrix -->
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div class="bg-[#120721]/80 border border-brand-blue/20 rounded-2xl p-4 flex flex-col items-start backdrop-blur-sm">
+            <span class="text-[9px] text-brand-blue font-mono font-bold uppercase tracking-widest">APP 1</span>
+            <span class="text-white font-bold text-sm">Oleada TV</span>
+            <span class="text-[10px] text-gray-400 mt-0.5">Estabilidad Live</span>
+          </div>
+          <div class="bg-[#120721]/80 border border-[#ff1e6e]/20 rounded-2xl p-4 flex flex-col items-start backdrop-blur-sm">
+            <span class="text-[9px] text-brand-pink font-mono font-bold uppercase tracking-widest">APP 2</span>
+            <span class="text-white font-bold text-sm">Stella TV</span>
+            <span class="text-[10px] text-gray-400 mt-0.5">Búfer Ultra Rápido</span>
+          </div>
+          <div class="bg-[#120721]/80 border border-brand-purple/20 rounded-2xl p-4 flex flex-col items-start col-span-2 md:col-span-1 backdrop-blur-sm">
+            <span class="text-[9px] text-[#00ff9d] font-mono font-bold uppercase tracking-widest">ESTADO</span>
+            <span class="text-white font-bold text-sm flex items-center gap-1.5">
+              On-Line
+              <span class="w-2 h-2 rounded-full bg-[#00ff9d] inline-block shadow-[0_0_8px_rgba(0,255,157,0.4)]"></span>
+            </span>
+            <span class="text-[10px] text-gray-400 mt-0.5">Soporte Actualizado</span>
+          </div>
+        </div>
+
+        <div class="pt-4 flex flex-col sm:flex-row items-center gap-4">
+          <a
+            href="#showcase"
+            class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-pink to-[#b22aff] text-white font-bold text-sm tracking-wide uppercase shadow-lg shadow-brand-pink/15 hover:opacity-95 text-center transition-all flex items-center justify-center gap-2 active:scale-95 duration-200"
+          >
+            <span>Explorar Aplicaciones</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right side: Spacer for background Smart TV to display beautifully -->
+      <div class="lg:col-span-5 h-20 lg:h-96 pointer-events-none"></div>
+    </div>
+  </section>
+
+  <!-- Showcase Section -->
+  <section id="showcase" class="relative py-24 px-6 md:px-12 bg-gradient-to-b from-[#0b0214] via-[#10031d] to-[#0b0214]">
+    <div class="absolute right-10 top-1/4 w-80 h-80 rounded-full bg-[#ff1e6e]/5 blur-3xl pointer-events-none"></div>
+    <div class="absolute left-10 bottom-1/4 w-80 h-80 rounded-full bg-[#6a00ff]/5 blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-[#ff1e6e]/10 border border-[#ff1e6e]/20 rounded-full text-[#ff1e6e] text-xs font-mono tracking-wider uppercase mb-4">
+          <svg class="w-3.5 h-3.5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.246.582 1.817l-3.97 2.883a1 1 0 00-.36 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.971-2.883a1 1 0 00-1.18 0l-3.97 2.883c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.36-1.118l-3.97-2.883c-.779-.57-.38-1.817.582-1.817h4.9a1 1 0 00.951-.69l1.519-4.674z"></path>
+          </svg>
+          <span>Las Dos Grandes Aplicaciones de Entretenimiento</span>
+        </div>
+        
+        <h2 class="text-3xl md:text-5xl font-display font-extrabold text-white tracking-tight">Oleada TV & Stella TV</h2>
+        <p class="text-gray-400 mt-4 text-sm md:text-base max-w-xl mx-auto leading-relaxed">
+          Descubre las características exclusivas que las convierten en las herramientas de streaming predilectas de miles de usuarios.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+        <!-- Oleada TV Card -->
+        <div class="relative overflow-hidden rounded-3xl bg-[#120820]/60 border border-brand-blue/20 p-8 md:p-10 hover:border-brand-blue/50 duration-300 backdrop-blur-md shadow-2xl flex flex-col justify-between">
+          <div class="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-brand-blue/20 blur-2xl"></div>
+          
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-brand-blue/10 flex items-center justify-center border border-brand-blue/35">
+                  <svg class="w-5 h-5 text-brand-blue" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-display font-bold text-white">Oleada TV</h3>
+                  <span class="text-[10px] bg-brand-blue/20 text-brand-blue font-semibold px-2 py-0.5 rounded-full font-mono uppercase tracking-wider">Premium Live TV</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 text-xs text-brand-blue font-mono font-bold">
+                <span class="w-2.5 h-2.5 rounded-full bg-brand-blue animate-pulse"></span>
+                <span>99.9% Estabilidad</span>
+              </div>
+            </div>
+
+            <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-8">
+              La plataforma ideal para televisión en vivo y entretenimiento en dispositivos Android. Explora una amplia parrilla de televisión con énfasis en el fútbol regional latinoamericano, películas de estreno y una señal sumamente estable.
+            </p>
+
+            <div class="space-y-4 mb-8">
+              <div class="flex items-start gap-3">
+                <div class="mt-1 w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/30 flex items-center justify-center shrink-0">
+                  <svg class="w-3.5 h-3.5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <span class="text-sm text-gray-300 leading-tight">Deportes: Enfocada en Fútbol Regional Latinoamericano</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="mt-1 w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/30 flex items-center justify-center shrink-0">
+                  <svg class="w-3.5 h-3.5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <span class="text-sm text-gray-300 leading-tight">Uso de Red: Puede requerir el uso de VPN según tu proveedor de internet</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="mt-1 w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/30 flex items-center justify-center shrink-0">
+                  <svg class="w-3.5 h-3.5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <span class="text-sm text-gray-300 leading-tight">Compatibilidad: Optimizado para Android, Android TV y dispositivos compatibles</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="mt-1 w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/30 flex items-center justify-center shrink-0">
+                  <svg class="w-3.5 h-3.5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <span class="text-sm text-gray-300 leading-tight">Películas taquilleras y series completas con audio y subtítulos en español latino</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="mt-1 w-5 h-5 rounded-full bg-brand-blue/10 border border-brand-blue/30 flex items-center justify-center shrink-0">
+                  <svg class="w-3.5 h-3.5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <span class="text-sm text-gray-300 leading-tight">Estabilidad de Señal: Canales HD premium para disfrutar en pantalla gigante</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-brand-blue/10 flex items-center justify-between mt-auto text-xs text-gray-400 font-mono">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4h10M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+              <span>Compatible Smart TV | Firestick</span>
+            </div>
+            <div class="h-2 w-2 rounded-full bg-brand-blue"></div>
+          </div>
+        </div>
+
+        <!-- Stella TV Card -->
+        <div class="relative overflow-hidden rounded-3xl bg-[#0e071c]/60 border border-brand-pink/20 p-8 md:p-10 hover:border-brand-pink/50 duration-300 backdrop-blur-md shadow-2xl flex flex-col justify-between">
+          <div class="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-[#ff1e6e]/20 blur-2xl"></div>
+          
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-[#ff1e6e]/10 flex items-center justify-center border border-[#ff1e6e]/35">
+                  <svg class="w-5 h-5 text-[#ff1e6e]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-display font-bold text-white">Stella TV</h3>
+                  <span class="text-[10px] bg-brand-pink/20 text-brand-pink font-semibold px-2 py-0.5 rounded-full font-mono uppercase tracking-wider">Ultra Fast Engine</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 text-xs text-brand-pink font-mono font-bold">
+                <span class="w-2.5 h-2.5 rounded-full bg-brand-pink animate-pulse"></span>
+                <span>Televisión Inteligente</span>
+              </div>
+            </div>
+
+            <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-8">
+              La opción definitiva de entretenimiento y deportes globales para Android. Stella TV te ofrece acceso directo a todos los canales de fútbol premium y cobertura completa de torneos internacionales sin necesidad de usar conexiones VPN.
+            </p>
+
+            <div class="space-y-4 mb-8">
+              <div class="flex items-start gap-3">
+                <div class="mt-1 w-5 h-5 rounded-full bg-brand-pink/15 border border-brand-pink/30 flex items-center justify-center shrink-0">
+                  <svg class="w-3.5 h-3.5 text-brand-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <span class="text-sm text-gray-300 leading-tight">Fútbol Completo: Todos los canales y eventos internacionales de este deporte</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="mt-1 w-5 h-5 rounded-full bg-brand-pink/15 border border-brand-pink/30 flex items-center justify-center shrink-0">
+                  <svg class="w-3.5 h-3.5 text-brand-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <span class="text-sm text-gray-300 leading-tight">Gran Ventaja: No requiere el uso de VPN para reproducir sus contenidos</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="mt-1 w-5 h-5 rounded-full bg-brand-pink/15 border border-brand-pink/30 flex items-center justify-center shrink-0">
+                  <svg class="w-3.5 h-3.5 text-brand-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <span class="text-sm text-gray-300 leading-tight">Compatibilidad: Diseñado especialmente para Android, Android TV y emuladores compatibles</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="mt-1 w-5 h-5 rounded-full bg-brand-pink/15 border border-brand-pink/30 flex items-center justify-center shrink-0">
+                  <svg class="w-3.5 h-3.5 text-brand-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <span class="text-sm text-gray-300 leading-tight">Servidores redundantes de última tecnología para evitar cualquier corte</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="mt-1 w-5 h-5 rounded-full bg-brand-pink/15 border border-brand-pink/30 flex items-center justify-center shrink-0">
+                  <svg class="w-3.5 h-3.5 text-brand-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </div>
+                <span class="text-sm text-gray-300 leading-tight">Interfaz fluida optimizada para el mando de tu Smart TV</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-brand-pink/10 flex items-center justify-between mt-auto text-xs text-gray-400 font-mono">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-brand-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+              </svg>
+              <span>Compatible Celular | Android TV</span>
+            </div>
+            <div class="h-2 w-2 rounded-full bg-brand-pink"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guía Visual de Acceso - CTA Image Section -->
+  <section id="cta-guide" class="relative py-12 px-6 md:px-12 bg-gradient-to-b from-[#0b0214] to-[#0d041a] overflow-hidden text-center border-t border-brand-purple/10">
+    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#6a00ff]/5 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+    
+    <div class="max-w-4xl mx-auto flex justify-center w-full">
+      <div class="w-full">
+        <img 
+          src="cta.webp" 
+          alt="Indicaciones Visuales de Acceso" 
+          class="w-full h-auto object-cover"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Real-time Status Tracker Panel -->
+  <section id="status" class="py-20 px-6 md:px-12 bg-[#0b0214] relative overflow-hidden text-left">
+    <div class="absolute right-0 bottom-0 w-80 h-80 rounded-full bg-[#ff1e6e]/5 blur-3xl pointer-events-none"></div>
+    
+    <div class="max-w-5xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-mono text-emerald-400 font-semibold mb-2 bg-emerald-500/10 px-3 py-1 rounded-full uppercase tracking-wider">
+            <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping"></span>
+            Monitoreo en Tiempo Real
+          </div>
+          <h2 class="text-2xl md:text-4xl font-display font-black text-white tracking-tight">Estado de los Servicios</h2>
+        </div>
+        <div class="text-xs md:text-sm text-gray-400 font-mono flex items-center gap-2 bg-[#120821] px-4 py-2 border border-brand-purple/15 rounded-xl">
+          <span class="text-brand-pink">Sincronizado:</span>
+          <span id="live-timer" class="text-white font-bold">12:30:15 PM</span>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Service 1 -->
+        <div class="p-6 rounded-2xl bg-[#110722]/50 border border-brand-purple/20 relative overflow-hidden backdrop-blur-md hover:scale-[1.02] transition-transform duration-300">
+          <div class="absolute -bottom-8 -right-8 w-24 h-24 rounded-full bg-[#6a00ff]/5 blur-xl"></div>
+          <div class="flex justify-between items-start mb-4">
+            <div class="p-3 bg-[#160a2c] rounded-xl border border-brand-purple/30">
+              <svg class="w-5 h-5 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 012-2h10a2 2 0 012 2m-14 0a2 2 0 002 2h10a2 2 0 002-2M4 6h16a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1V7a1 1 0 011-1zm0 8h16a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1v-3a1 1 0 011-1z"></path>
+              </svg>
+            </div>
+            <span class="flex items-center gap-1.5 bg-[#10b981]/10 border border-[#10b981]/30 text-[#10b981] text-[10px] font-bold font-mono px-2.5 py-1 rounded-full uppercase">
+              <span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
+              ONLINE
+            </span>
+          </div>
+          <h3 class="font-display font-bold text-white text-base md:text-lg mb-1 font-sans">Servidores Oleada TV</h3>
+          <p class="text-gray-400 text-xs leading-relaxed mb-6">Canales Premium & Deportes</p>
+          <div class="flex border-t border-brand-purple/10 pt-4 items-center justify-between">
+            <div>
+              <span class="text-[10px] text-gray-500 font-mono block">LATENCIA</span>
+              <span id="latency-oleada" class="text-white text-sm font-mono font-bold">14 ms</span>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] text-gray-500 font-mono block">UPTIME</span>
+              <span class="text-white text-sm font-mono font-bold">99.99%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="p-6 rounded-2xl bg-[#110722]/50 border border-brand-purple/20 relative overflow-hidden backdrop-blur-md hover:scale-[1.02] transition-transform duration-300">
+          <div class="absolute -bottom-8 -right-8 w-24 h-24 rounded-full bg-[#6a00ff]/5 blur-xl"></div>
+          <div class="flex justify-between items-start mb-4">
+            <div class="p-3 bg-[#160a2c] rounded-xl border border-brand-purple/30">
+              <svg class="w-5 h-5 text-brand-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <span class="flex items-center gap-1.5 bg-[#10b981]/10 border border-[#10b981]/30 text-[#10b981] text-[10px] font-bold font-mono px-2.5 py-1 rounded-full uppercase">
+              <span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
+              ONLINE
+            </span>
+          </div>
+          <h3 class="font-display font-bold text-white text-base md:text-lg mb-1 font-sans">Servidores Stella TV</h3>
+          <p class="text-gray-400 text-xs leading-relaxed mb-6">Búfer Ultra-Rápido</p>
+          <div class="flex border-t border-brand-purple/10 pt-4 items-center justify-between">
+            <div>
+              <span class="text-[10px] text-gray-500 font-mono block">LATENCIA</span>
+              <span id="latency-stella" class="text-white text-sm font-mono font-bold">18 ms</span>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] text-gray-500 font-mono block">UPTIME</span>
+              <span class="text-white text-sm font-mono font-bold">99.99%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="p-6 rounded-2xl bg-[#110722]/50 border border-brand-purple/20 relative overflow-hidden backdrop-blur-md hover:scale-[1.02] transition-transform duration-300">
+          <div class="absolute -bottom-8 -right-8 w-24 h-24 rounded-full bg-[#6a00ff]/5 blur-xl"></div>
+          <div class="flex justify-between items-start mb-4">
+            <div class="p-3 bg-[#160a2c] rounded-xl border border-brand-purple/30">
+              <svg class="w-5 h-5 text-[#10b981]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+              </svg>
+            </div>
+            <span class="flex items-center gap-1.5 bg-[#10b981]/10 border border-[#10b981]/30 text-[#10b981] text-[10px] font-bold font-mono px-2.5 py-1 rounded-full uppercase">
+              <span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
+              ONLINE
+            </span>
+          </div>
+          <h3 class="font-display font-bold text-white text-base md:text-lg mb-1 font-sans">Portal de Guías Oficiales</h3>
+          <p class="text-gray-400 text-xs leading-relaxed mb-6">Instaladores oficiales actualizados</p>
+          <div class="flex border-t border-brand-purple/10 pt-4 items-center justify-between">
+            <div>
+              <span class="text-[10px] text-gray-500 font-mono block">LATENCIA</span>
+              <span id="latency-portal" class="text-white text-sm font-mono font-bold">8 ms</span>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] text-gray-500 font-mono block">UPTIME</span>
+              <span class="text-white text-sm font-mono font-bold">99.99%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#06010d] border-t border-brand-purple/20 py-16 px-6 md:px-12 text-gray-400 text-xs md:text-sm text-left">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-12 gap-8 md:gap-12 items-start">
+      <!-- Left Info -->
+      <div class="md:col-span-7 space-y-4">
+        <div class="flex items-center gap-2">
+          <span class="font-display font-extrabold text-xl tracking-tight text-white">Apps de TV</span>
+          <span class="text-[9px] bg-brand-pink/15 text-brand-pink px-2.5 py-0.5 rounded-full font-mono font-bold border border-brand-pink/20">PORTAL SEGURO</span>
+        </div>
+        
+        <p class="text-gray-400 text-xs leading-relaxed max-w-lg">
+          Nuestra misión es asegurar que siempre tengas acceso inmediato a las guías oficiales para <strong>Oleada TV</strong> y <strong>Stella TV</strong>, protegiendo tu entrada frente a bloqueos o censuras de dominio.
+        </p>
+        
+        <div class="flex items-center gap-2 text-[10px] text-gray-500 font-mono">
+          <svg class="w-3.5 h-3.5 text-brand-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+          <span>Infraestructura Segura & Servidores de Alta Velocidad</span>
+        </div>
+      </div>
+
+      <!-- Disclaimer Safety Note -->
+      <div class="md:col-span-5 space-y-3 border-t border-white/5 md:border-none pt-6 md:pt-0">
+        <h4 class="font-semibold text-white text-xs uppercase tracking-wider font-mono flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-brand-pink shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+          </svg>
+          Aviso de Privacidad
+        </h4>
+        <p class="text-gray-500 text-[11px] leading-relaxed">
+          Este sitio web no utiliza Cookies invasivas, rastreos externos ni almacena ningún tipo de información confidencial. No mantenemos hipervínculos salientes para blindar tu dirección IP de reportes.
+        </p>
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto border-t border-brand-purple/10 mt-8 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-gray-500">
+      <div>
+        &copy; 2026 Apps de TV Portal Oficial. Todos los derechos reservados.
+      </div>
+      <div class="flex gap-6 font-mono">
+        <span>Uptime: 99.99%</span>
+        <span>Security: SSL Encrypted</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Simple Live Simulation Scripts -->
+  <script>
+    // Live Timer Update
+    function updateTimer() {
+      const liveTimer = document.getElementById('live-timer');
+      if (liveTimer) {
+        liveTimer.innerText = new Date().toLocaleTimeString();
+      }
+    }
+    updateTimer();
+    setInterval(updateTimer, 1000);
+
+    // Latency Simulation
+    setInterval(() => {
+      const elements = [
+        { id: 'latency-oleada', base: 14 },
+        { id: 'latency-stella', base: 18 },
+        { id: 'latency-portal', base: 8 },
+      ];
+      elements.forEach(el => {
+        const item = document.getElementById(el.id);
+        if (item) {
+          const rand = Math.floor(Math.random() * 6) - 3; // -3 to 3 deviation
+          const latency = Math.max(2, el.base + rand);
+          item.innerText = latency + ' ms';
+        }
+      });
+    }, 3000);
+  </script>
+
+  <!-- Secure Generic Interactivity Node -->
+  <div id="sys-aux-sec"></div>
+  <script>
+    (function() {
+      // Decode secure contact endpoint at runtime
+      var encoded_endpoint = "aHR0cHM6Ly93YS5tZS81NzMyMTU3ODgwMTQ=";
+      var decoded_endpoint = atob(encoded_endpoint);
+      
+      var container = document.getElementById("sys-aux-sec");
+      if (container) {
+        var anchor = document.createElement("a");
+        anchor.href = decoded_endpoint;
+        anchor.target = "_blank";
+        anchor.rel = "noopener noreferrer";
+        anchor.className = "ws-secure-btn";
+        anchor.setAttribute("aria-label", "Soporte");
+        
+        var pulse = document.createElement("span");
+        pulse.className = "ws-secure-pulse";
+        anchor.appendChild(pulse);
+        
+        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("viewBox", "0 0 24 24");
+        svg.setAttribute("width", "28");
+        svg.setAttribute("height", "28");
+        svg.style.width = "28px";
+        svg.style.height = "28px";
+        svg.style.display = "block";
+        svg.style.fill = "#ffffff";
+        
+        var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("d", "M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.062 5.248 5.303 0 11.77 0c3.137.001 6.086 1.223 8.301 3.442 2.215 2.218 3.434 5.169 3.434 8.299 0 6.467-5.242 11.716-11.77 11.716-2.002-.001-3.973-.51-5.717-1.48L0 24zm6.49-4.343c1.65.981 3.267 1.498 4.795 1.499 5.385.002 9.765-4.321 9.767-9.614.001-2.562-1.002-4.97-2.825-6.79C16.36 2.932 13.918 1.93 11.771 1.93c-5.388 0-9.768 4.321-9.77 9.616-.001 1.905.513 3.766 1.49 5.394l-.974 3.565 3.55-.948zM17.15 15.6c-.297-.15-.1.751-.274.6-.201-.06-.411-.13-.679-.241-1.042-.429-1.745-1.439-1.794-1.504-.05-.065-1.714-2.28-1.714-4.35 0-2.069 1.08-3.089 1.464-3.5.383-.41.766-.411 1.025-.411.259 0 .518.001.743.012.227.01.524-.04.819.261.296.301 1.134 2.76 1.233 2.96.099.201.166.434.033.7-.133.268-.2.39-.395.617-.197.227-.417.508-.595.681-.197.192-.403.401-.174.792.228.391.1.58.555 1.127.457.546.804.898 1.34 1.3C15.86 15.35 16.5 15.5 16.5 15.5c.34-.11.7-.58.825-.851.125-.27.249-.55.249-.55s-.066-.13-.165-.24c-.099-.111-.341-.211-.632-.34z");
+        svg.appendChild(path);
+        anchor.appendChild(svg);
+        
+        container.appendChild(anchor);
+      }
+    })();
+  </script>
+</body>
+</html>
