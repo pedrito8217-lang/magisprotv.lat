@@ -2,7 +2,7 @@
 <html lang="es" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Portal de Guías - Apps de TV (Oleada & Stella TV)</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   
@@ -69,7 +69,9 @@
     .ws-secure-btn {
       position: fixed !important;
       bottom: 24px !important;
+      bottom: calc(20px + env(safe-area-inset-bottom, 0px)) !important;
       right: 24px !important;
+      right: calc(20px + env(safe-area-inset-right, 0px)) !important;
       width: 56px !important;
       height: 56px !important;
       background-color: #25d366 !important;
@@ -78,16 +80,27 @@
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4) !important;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5) !important;
       z-index: 999999 !important;
-      transition: all 0.3s ease !important;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
       pointer-events: auto !important;
       visibility: visible !important;
       opacity: 1 !important;
     }
+    @media (max-width: 640px) {
+      .ws-secure-btn {
+        bottom: 20px !important;
+        bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+        right: 20px !important;
+        right: calc(16px + env(safe-area-inset-right, 0px)) !important;
+        width: 52px !important;
+        height: 52px !important;
+      }
+    }
     .ws-secure-btn:hover {
       transform: scale(1.1) !important;
       background-color: #20ba5a !important;
+      box-shadow: 0 6px 24px rgba(37, 211, 102, 0.6) !important;
     }
     .ws-secure-btn:active {
       transform: scale(0.95) !important;
@@ -610,44 +623,14 @@
     }, 3000);
   </script>
 
-  <!-- Secure Generic Interactivity Node -->
-  <div id="sys-aux-sec"></div>
-  <script>
-    (function() {
-      // Decode secure contact endpoint at runtime
-      var encoded_endpoint = "aHR0cHM6Ly93YS5tZS81NzMyMTU3ODgwMTQ=";
-      var decoded_endpoint = atob(encoded_endpoint);
-      
-      var container = document.getElementById("sys-aux-sec");
-      if (container) {
-        var anchor = document.createElement("a");
-        anchor.href = decoded_endpoint;
-        anchor.target = "_blank";
-        anchor.rel = "noopener noreferrer";
-        anchor.className = "ws-secure-btn";
-        anchor.setAttribute("aria-label", "Soporte");
-        
-        var pulse = document.createElement("span");
-        pulse.className = "ws-secure-pulse";
-        anchor.appendChild(pulse);
-        
-        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-        svg.setAttribute("viewBox", "0 0 24 24");
-        svg.setAttribute("width", "28");
-        svg.setAttribute("height", "28");
-        svg.style.width = "28px";
-        svg.style.height = "28px";
-        svg.style.display = "block";
-        svg.style.fill = "#ffffff";
-        
-        var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        path.setAttribute("d", "M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.062 5.248 5.303 0 11.77 0c3.137.001 6.086 1.223 8.301 3.442 2.215 2.218 3.434 5.169 3.434 8.299 0 6.467-5.242 11.716-11.77 11.716-2.002-.001-3.973-.51-5.717-1.48L0 24zm6.49-4.343c1.65.981 3.267 1.498 4.795 1.499 5.385.002 9.765-4.321 9.767-9.614.001-2.562-1.002-4.97-2.825-6.79C16.36 2.932 13.918 1.93 11.771 1.93c-5.388 0-9.768 4.321-9.77 9.616-.001 1.905.513 3.766 1.49 5.394l-.974 3.565 3.55-.948zM17.15 15.6c-.297-.15-.1.751-.274.6-.201-.06-.411-.13-.679-.241-1.042-.429-1.745-1.439-1.794-1.504-.05-.065-1.714-2.28-1.714-4.35 0-2.069 1.08-3.089 1.464-3.5.383-.41.766-.411 1.025-.411.259 0 .518.001.743.012.227.01.524-.04.819.261.296.301 1.134 2.76 1.233 2.96.099.201.166.434.033.7-.133.268-.2.39-.395.617-.197.227-.417.508-.595.681-.197.192-.403.401-.174.792.228.391.1.58.555 1.127.457.546.804.898 1.34 1.3C15.86 15.35 16.5 15.5 16.5 15.5c.34-.11.7-.58.825-.851.125-.27.249-.55.249-.55s-.066-.13-.165-.24c-.099-.111-.341-.211-.632-.34z");
-        svg.appendChild(path);
-        anchor.appendChild(svg);
-        
-        container.appendChild(anchor);
-      }
-    })();
-  </script>
+  <!-- Secure Static WhatsApp Button for cross-device compatibility -->
+  <div id="sys-aux-sec">
+    <a href="https://wa.me/573215788014" target="_blank" rel="noopener noreferrer" class="ws-secure-btn" aria-label="Soporte">
+      <span class="ws-secure-pulse"></span>
+      <svg viewBox="0 0 24 24" style="width: 28px; height: 28px; display: block; fill: #ffffff;" width="28" height="28">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.062 5.248 5.303 0 11.77 0c3.137.001 6.086 1.223 8.301 3.442 2.215 2.218 3.434 5.169 3.434 8.299 0 6.467-5.242 11.716-11.77 11.716-2.002-.001-3.973-.51-5.717-1.48L0 24zm6.49-4.343c1.65.981 3.267 1.498 4.795 1.499 5.385.002 9.765-4.321 9.767-9.614.001-2.562-1.002-4.97-2.825-6.79C16.36 2.932 13.918 1.93 11.771 1.93c-5.388 0-9.768 4.321-9.77 9.616-.001 1.905.513 3.766 1.49 5.394l-.974 3.565 3.55-.948zM17.15 15.6c-.297-.15-.1.751-.274.6-.201-.06-.411-.13-.679-.241-1.042-.429-1.745-1.439-1.794-1.504-.05-.065-1.714-2.28-1.714-4.35 0-2.069 1.08-3.089 1.464-3.5.383-.41.766-.411 1.025-.411.259 0 .518.001.743.012.227.01.524-.04.819.261.296.301 1.134 2.76 1.233 2.96.099.201.166.434.033.7-.133.268-.2.39-.395.617-.197.227-.417.508-.595.681-.197.192-.403.401-.174.792.228.391.1.58.555 1.127.457.546.804.898 1.34 1.3C15.86 15.35 16.5 15.5 16.5 15.5c.34-.11.7-.58.825-.851.125-.27.249-.55.249-.55s-.066-.13-.165-.24c-.099-.111-.341-.211-.632-.34z"></path>
+      </svg>
+    </a>
+  </div>
 </body>
 </html>
